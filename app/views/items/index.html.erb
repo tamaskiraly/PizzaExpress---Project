@@ -1,0 +1,25 @@
+<h1>Listing products</h1>
+<table class="table">
+<% @items.each do |item| %>
+<tr class="">
+<td>
+<%= image_tag(item.image_url, class: 'list_image') %>
+</td>
+<td class="list_description">
+<dl>
+<dt><%= item.title %></dt>
+<dd><%= truncate(strip_tags(item.ingredients), length: 80) %></dd>
+</dl>
+</td>
+<td class="list_actions">
+<%= link_to 'Show', item %><br/>
+<%= link_to 'Edit', edit_item_path(item) %><br/>
+<%= link_to 'Destroy', item, method: :delete,
+data: { confirm: 'Are you sure?' } %>
+<td style="display: none"><a href="/cart/<%= item.id %>">Add to cart</a></td>
+</td>
+</tr>
+<% end %>
+</table>
+<br />
+<%= link_to 'New item', new_item_path %>

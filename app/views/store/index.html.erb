@@ -1,0 +1,22 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% @cart %>
+<% end %>
+<h1>PizzaExpress Menu</h1>
+<% cache ['store', Item.latest] do %>
+ <% @items.each do |item| %>
+  <% cache ['entry', item] do %>
+        <div class="entry">
+        <%= image_tag(item.image_url) %>
+        <h3><%= item.title %></h3>
+        <p><%= sanitize(item.ingredients) %></p>
+        <div class="price_line">
+            <span class="price"><%= number_to_currency(item.price, :unit=>"€") %></span>
+            <% if @loggedin %>
+            <%= button_to 'Add to Cart', line_items_path(item_id: item), remote: true %>
+            <%end%>
+        </div>
+    </div>
+  <% end %>
+ <% end %>
+<% end %>

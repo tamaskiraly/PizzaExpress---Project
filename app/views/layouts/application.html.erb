@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PizzaExpress</title>
+  
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  </style>
+</head>
+<body class="<%= controller.controller_name %>">
+  <div class="container">
+    <div calss="row">
+    <div class="col-xs-12">
+  <%= render 'layouts/navbar' %>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-sm-9  col-md-10">
+      <%= yield %>
+    </div>
+    <div class="col-sm-3 col-md-2">
+      <% if @cart %>
+      <%= hidden_div_if(@cart.line_items.empty? || !@loggedin, id: 'cart') do %>
+        <%= render @cart %>
+      <% end %>
+      <%end%>
+      <br>
+      <% if session[:user_id] %>
+      
+        <div><%= link_to 'Orders', orders_path , class: "btn btn-primary btn-lg", :style=>'color:#FFFFFF; width: 100%;'%></div><br>
+        <div><%= link_to 'Products', '/store/index', class: "btn btn-primary btn-lg", :style=>'color:#FFFFFF; width: 100%;' %></div><br>
+        <div><%= link_to 'Users', users_path, class: "btn btn-primary btn-lg", :style=>'color:#FFFFFF; width: 100%;'%></div>
+      
+
+<% end %>
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

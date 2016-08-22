@@ -1,0 +1,40 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<%= '/store/wellcome' %>">PizzaExpress</a>
+          <a class="navbar-brand" href="<%= '/store/contactus' %>">Contact Us</a>
+          <a class="navbar-brand" href="<%= '/store/index' %>">Menu</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          
+          <%= hidden_div_if @loggedin do %>
+          <form class="navbar-form navbar-right" <%= form_tag login_url do %>>
+            
+            
+            <div class="form-group">
+              <input type="text" placeholder="Name" class="form-control" <%= text_field_tag :name, params[:name] %>>
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" <%= password_field_tag :password, params[:password] %>>
+            </div>
+            
+            <%= submit_tag "Login", class: "btn btn-success"%>
+            <%= link_to 'Sign Up', '/users/new', class: "btn btn-success", :style=>'color:#FFFFFF;' %>
+          </form>
+          <% end %>
+          <% end %>
+          <% if @loggedin %>
+          <%= hidden_div_if !@loggedin do %>
+          <span><%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-success navbar-right", style: "margin:1%"%></span>
+          <a class="navbar-brand navbar-right" class="well" href="<%= users_path %>">Wellcome <%= User.find_by(id: session[:user_id]).name %></a>
+          <% end %>
+          <% end %>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
